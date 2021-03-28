@@ -13,3 +13,12 @@ let map = L.map('map', {
 map.setMaxBounds(map.getBounds());
 
 L.tileLayer('https://b.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
+
+L.geoJSON(data, {
+    style: function(feature) {
+        return {
+            color: '#a17d9d',
+            fillOpacity: 0.2
+        };
+    }
+}).addTo(map)
