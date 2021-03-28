@@ -6,8 +6,7 @@ let map = L.map('map', {
     // scrollWheelZoom: false,
     minZoom: 12,
     maxZoom: 16,
-    maxBoundsViscosity: 1
-    
+    maxBoundsViscosity: 1 
 
 }).setView([49.7821562, 22.7692634], 14);
 
