@@ -59,7 +59,7 @@ request.onload = () => {
 
     console.log(sensors)
 }
-ar legend = L.control({position: 'bottomleft'});
+var legend = L.control({position: 'bottomleft'});
 function getColor(d) {
     return d > 500 ? '#800080' :
            d > 200  ? '#BD0026' :
