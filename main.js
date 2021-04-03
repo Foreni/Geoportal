@@ -11,8 +11,6 @@ L.tileLayer('https://b.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-//var circle = L.circle([49.7821562, 22.7692634], {radius: 50000}).addTo(map);
-
 L.geoJSON(data, {
     style: function(feature) {
         return {
@@ -22,38 +20,35 @@ L.geoJSON(data, {
     }
 }).addTo(map)
 
-let requestUrl = 'https://data.sensor.community/airrohr/v1/filter/area=49.7821562,22.7692634,50'
+let radius = 50; //kilometers
+let requestUrl = 'http://data.sensor.community/airrohr/v1/filter/area=49.7821562,22.7692634,' + radius.toString();
 let request = new XMLHttpRequest();
 request.open('GET', requestUrl);
 request.responseType = 'json';
-request.send();
 
 //TUTAJ WSADZAĆ KOD WYKONUJĄCY SIĘ PRZY POKAZYWANIU CZUJNIKÓW NA MAPIE
 request.onload = () => {
+    document.getElementById("preloader").remove();
     const response = request.response;
     sensors = {};
     sensors['type'] = 'FeatureCollection';
     sensors['features'] = [];
+    let added = [];
 
-    for (i = 0; i < response.length; i++) {
-        let feature = {
-            "type": "Feature",
-            "geometry": {
-            "type": "Point",
-            "coordinates": [response[i].location.longitude, response[i].location.latitude]
-            },
-            "properties": {
+    for (let i = 0; i < response.length; i++) {
+        let omit = (added.indexOf(response[i].location.longitude) != -1);
+        if (omit) continue;
 
-            }    
-        }
-        
+        let feature = turf.point([response[i].location.longitude, response[i].location.latitude], response[i])        
+        added.push(response[i].location.longitude);
         sensors['features'].push(feature);
     }
 
     L.geoJSON(sensors).addTo(map);
-
-    console.log(sensors)
 }
+
+request.send();
+
 var legend = L.control({position: 'bottomleft'});
 function getColor(d) {
     return d > 500 ? '#800080' :

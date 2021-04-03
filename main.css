@@ -1,16 +1,49 @@
-html, body {
+html, body, #preloader, #map {
     height: 100%;
-    margin:0
+}
+
+#preloader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+}
+
+.frame {
+    background-color: rgba(244, 195, 125, 0.3);
+    height: 300px;
+    width: 500px;
+    border-radius: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 576px) {
+    .frame {width: 100%};
+}
+
+@media only screen and (max-height: 300px) {
+    .frame {height: 100%}
+}
+
+.loading-header {
+    color: black;
+}
+
+#loader {
+    width: 60px;
+    height: 60px;
 }
 
 #map {
-    height: 100%;
+    z-index: 0;
 }
-.legend {
-    line-height: 18px;
-    
-    background-color: #e6e6e6;
-}
+
 .legend i {
     width: 18px;
     height: 18px;
@@ -18,6 +51,7 @@ html, body {
     margin-left: 8px;
     opacity: 0.7;
 }
+
 .info {
     padding: 6px 8px;
     background: white;
