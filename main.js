@@ -20,7 +20,7 @@ L.geoJSON(data, {
     }
 }).addTo(map)
 
-let radius = 50; //kilometers
+let radius = 1; //kilometers
 let requestUrl = 'http://data.sensor.community/airrohr/v1/filter/area=49.7821562,22.7692634,' + radius.toString();
 let request = new XMLHttpRequest();
 request.open('GET', requestUrl);
@@ -31,19 +31,46 @@ request.onload = () => {
     document.getElementById("preloader").remove();
     const response = request.response;
     sensors = {};
-    sensors['type'] = 'FeatureCollection';
-    sensors['features'] = [];
-    let added = [];
+    sensors.type = 'FeatureCollection';
+    sensors.features = [];
 
     for (let i = 0; i < response.length; i++) {
-        let omit = (added.indexOf(response[i].location.longitude) != -1);
-        if (omit) continue;
 
-        let feature = turf.point([response[i].location.longitude, response[i].location.latitude], response[i])        
-        added.push(response[i].location.longitude);
-        sensors['features'].push(feature);
+        let addNewFeature = true;
+
+        for (let j = 0; j < sensors.features.length; j++)
+        {   
+            const keys = Object.keys(sensors.features[j].properties);
+
+            if (sensors.features[j].properties[keys[0]].location.id == response[i].location.id)
+            {  
+                addNewFeature = false;
+                if (keys.indexOf(response[i].sensor.sensor_type.name) == -1)
+                {
+                    sensors.features[j].properties[response[i].sensor.sensor_type.name] = response[i];
+                }
+                break;
+            }
+        }
+
+        if (addNewFeature == true) {
+            let localisation = [parseFloat(response[i].location.longitude), parseFloat(response[i].location.latitude)];
+            let properties = {[response[i].sensor.sensor_type.name]: response[i]};
+            let feature = turf.point(localisation, properties); 
+            sensors['features'].push(feature);
+        }
     }
 
+    // let interpolation = turf.interpolate(sensors, 1, {
+    //     property: 'sensordatavalues.id',
+    //     gridType: 'hex'
+    // });
+
+    // L.geoJSON(interpolation, {
+    //     onEachFeature: (feature, layer) => {layer.bindPopup(feature.properties.id.toString())} 
+    // }).addTo(map);
+
+    console.log(sensors.features);
     L.geoJSON(sensors).addTo(map);
 }
 
