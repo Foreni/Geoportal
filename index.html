@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geoportal</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+    crossorigin="anonymous">
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <!-- Turf -->
+  <script src='https://unpkg.com/@turf/turf@6.3.0/turf.min.js'></script>
+
+  <!-- <script type="text/javascript" src="data/przemysl.geojson"></script> -->
+  <link rel="stylesheet" href="static/main.css">
+</head>
+<body>
+  <div id="preloader">
+    <div class="frame">
+      <h2 class="loading-header">WCZYTYWANIE GEOPORTALU</h2>
+      <img src="media/preloader.gif" alt="Wczytywanie danych.">
+    </div>
+  </div>
+  <div id="map"></div>
+  <div id="pollution-change">PM10</div>
+  <div class="top-panel">
+    <b>Geoportal Ziemi Przemyskiej</b>
+  </div>
+  <div id="right-panel">
+    <div id="background-graphic">
+      <button id="close-button" type="button">&times;</button>
+      <div id="header"></div>
+      <div id="subheader"></div>
+    </div>
+    <div class="section" id="pollution-section">
+      <div class="section-header"><b>Pyły</b></div>
+      <div>
+        <div class="data-type">
+          <div class="data-symbol">PM10</div>
+          <div id='PM10-pollution-value' class="data-value">NaN</div>
+        </div>
+        <div class="data-type">
+          <div class="data-symbol">PM2.5</div>
+          <div id='PM2.5-pollution-value' class="data-value">NaN</div>
+        </div>
+      </div>
+    </div>
+    <div class="section" id="weather-section">
+      <div class="section-header"><b>Pogoda</b></div>
+      <div>
+        <div class="data-type">
+          <div class="data-symbol">Temperatura</div>
+          <div id='temperature-value' class="data-value">NaN</div>
+        </div>
+        <div class="data-type">
+          <div class="data-symbol">Ciśnienie</div>
+          <div id='pressure-value' class="data-value">NaN</div>
+        </div>
+        <div class="data-type">
+          <div class="data-symbol">Wilgotność</div>
+          <div id='humidity-value' class="data-value">NaN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="static/main.js"></script>
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+</html>
