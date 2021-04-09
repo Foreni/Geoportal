@@ -1,5 +1,5 @@
 html, body, #preloader, #map {
-    height: 98.15%;
+    height: 100%;
     width: 100%;
     user-select: none;
     -webkit-user-select: none;
@@ -186,6 +186,7 @@ html, body, #preloader, #map {
 @media only screen and (max-width: 160px) {
     .loading-header {display: none;}
 }
+
 
 /* Navbar */
 .topnav {

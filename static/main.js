@@ -301,6 +301,7 @@ request.onload = () => {
 
     drawMarkers(0);
 }
+
 function navbar() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
@@ -308,5 +309,6 @@ function navbar() {
     } else {
       x.className = "topnav";
     }
-  }
+ }
+
 request.send();
